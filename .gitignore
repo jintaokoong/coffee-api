@@ -7,3 +7,4 @@ temp/
 migration/
 .env
 ormconfig.json
+dist/
