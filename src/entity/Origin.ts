@@ -1,10 +1,12 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { Coffee } from "./Coffee";
 import { User } from "./User";
@@ -31,4 +33,10 @@ export class Origin extends BaseEntity {
 
   @ManyToOne((_t) => User, (u) => u.regions)
   createdBy: User;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
