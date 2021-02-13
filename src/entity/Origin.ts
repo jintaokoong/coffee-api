@@ -10,7 +10,7 @@ import { Coffee } from "./Coffee";
 import { User } from "./User";
 
 @Entity()
-export class Region extends BaseEntity {
+export class Origin extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
@@ -20,7 +20,13 @@ export class Region extends BaseEntity {
   @Column()
   country: string;
 
-  @OneToMany((_type) => Coffee, (coffee) => coffee.region)
+  @Column()
+  farm: string;
+
+  @Column()
+  description: string;
+
+  @OneToMany((_type) => Coffee, (coffee) => coffee.origin)
   coffee: Coffee[];
 
   @ManyToOne((_t) => User, (u) => u.regions)

@@ -4,34 +4,31 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Recipe } from "./Recipe";
-import { Region } from "./Region";
-import { Roast } from "./Roast";
+import { Origin } from "./Origin";
+import { Process } from "./Process";
+import { RoastedCoffee } from "./RoastedCoffee";
 import { User } from "./User";
 
 @Entity()
 export class Coffee extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
   @Column()
-  name: string;
+  variation: string;
 
-  @Column()
-  process: string;
+  @ManyToOne(() => Process, (p) => p.coffees)
+  process: Process;
 
-  @ManyToOne(() => Roast, (roast) => roast.coffees)
-  roast: Roast;
+  @OneToOne(() => RoastedCoffee, (rc) => rc.coffee)
+  roasted: RoastedCoffee;
 
-  @ManyToOne((_type) => Region, (region) => region.coffee)
-  region: Region;
-
-  @OneToMany((_t) => Recipe, (recipe) => recipe.coffee)
-  recipes: Recipe[];
+  @ManyToOne((_type) => Origin, (origin) => origin.coffee)
+  origin: Origin;
 
   @CreateDateColumn()
   createdDateTime: Date;

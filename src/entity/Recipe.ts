@@ -6,7 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Coffee } from "./Coffee";
+import { BrewMethod } from "./BrewMethod";
+import { RoastedCoffee } from "./RoastedCoffee";
 import { TasteNote } from "./TasteNote";
 import { User } from "./User";
 
@@ -21,8 +22,11 @@ export class Recipe extends BaseEntity {
   @Column()
   duration: number;
 
-  @ManyToMany(() => TasteNote, (tn) => tn.recipes)
-  tasteNotes: TasteNote[];
+  @Column()
+  weight: number;
+
+  @Column()
+  volume: number;
 
   @Column()
   remarks: string;
@@ -30,8 +34,14 @@ export class Recipe extends BaseEntity {
   @Column()
   grind: string;
 
-  @ManyToOne((_t) => Coffee, (coffee) => coffee.recipes)
-  coffee: Coffee;
+  @ManyToMany(() => TasteNote, (tn) => tn.recipes)
+  tasteNotes: TasteNote[];
+
+  @ManyToOne((_t) => RoastedCoffee, (coffee) => coffee.recipes)
+  roasted: RoastedCoffee;
+
+  @ManyToOne(() => BrewMethod, (bm) => bm.recipes)
+  brewMethod: BrewMethod;
 
   @ManyToOne((_t) => User, (u) => u.recipes)
   createdBy: User;

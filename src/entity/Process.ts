@@ -5,16 +5,19 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { RoastedCoffee } from "./RoastedCoffee";
+import { Coffee } from "./Coffee";
 
 @Entity()
-export class Roast extends BaseEntity {
+export class Process extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   name: string;
 
-  @OneToMany(() => RoastedCoffee, (coffee) => coffee.roast)
-  coffees: RoastedCoffee[];
+  @Column()
+  description: string;
+
+  @OneToMany(() => Coffee, (c) => c.process)
+  coffees: Coffee[];
 }

@@ -8,8 +8,9 @@ import {
 import { Brewer } from "./Brewer";
 import { BrewMethod } from "./BrewMethod";
 import { Coffee } from "./Coffee";
+import { Origin } from "./Origin";
 import { Recipe } from "./Recipe";
-import { Region } from "./Region";
+import { RoastedCoffee } from "./RoastedCoffee";
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,11 +23,14 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToMany(() => Region, (r) => r.createdBy)
-  regions: Region[];
+  @OneToMany(() => Origin, (r) => r.createdBy)
+  regions: Origin[];
 
   @OneToMany(() => Coffee, (r) => r.createdBy)
   coffees: Coffee[];
+
+  @OneToMany(() => RoastedCoffee, (r) => r.createdBy)
+  roasteds: RoastedCoffee[];
 
   @OneToMany(() => Recipe, (r) => r.createdBy)
   recipes: Recipe[];
