@@ -6,6 +6,7 @@ import { createConnection } from "typeorm";
 import authController from "./controllers/auth.controller";
 import coffeeController from "./controllers/coffee.controller";
 import originController from "./controllers/origin.controller";
+import processController from "./controllers/process.controller";
 import roasteryController from "./controllers/roastery.controller";
 import userController from "./controllers/user.controller";
 
@@ -27,6 +28,7 @@ import userController from "./controllers/user.controller";
   app.use("/api/user", userController);
   app.use("/api/auth", authController);
   app.use("/api/origin", originController);
+  app.use("/api/process", processController);
   app.use("/api/roastery", roasteryController);
   app.use("/api/coffee", coffeeController);
 
