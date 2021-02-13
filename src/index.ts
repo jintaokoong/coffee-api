@@ -5,6 +5,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import authController from "./controllers/auth.controller";
 import coffeeController from "./controllers/coffee.controller";
+import roasteryController from "./controllers/roastery.controller";
 import userController from "./controllers/user.controller";
 
 (async () => {
@@ -22,9 +23,10 @@ import userController from "./controllers/user.controller";
     res.send("service is up!");
   });
 
-  app.use("/user", userController);
-  app.use("/auth", authController);
-  app.use("/coffee", coffeeController);
+  app.use("/api/user", userController);
+  app.use("/api/auth", authController);
+  app.use("/api/roastery", roasteryController);
+  app.use("/api/coffee", coffeeController);
 
   await createConnection();
   app.listen(4000, () => {

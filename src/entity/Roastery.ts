@@ -1,11 +1,15 @@
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import { RoastedCoffee } from "./RoastedCoffee";
+import { User } from "./User";
 
 @Entity()
 export class Roastery extends BaseEntity {
@@ -15,12 +19,21 @@ export class Roastery extends BaseEntity {
   @Column()
   name: string;
 
-  @Column()
+  @Column("float")
   latitude: number;
 
-  @Column()
+  @Column("float")
   longitude: number;
 
   @OneToMany(() => RoastedCoffee, (rc) => rc.roastery)
   roasted: RoastedCoffee[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @ManyToOne(() => User, (u) => u.roasteries)
+  createdBy: User;
 }

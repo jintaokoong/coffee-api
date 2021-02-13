@@ -1,1 +1,4 @@
-class ServerError extends Error {}
+export interface ErrorDto {
+  type: string;
+  message: string;
+}

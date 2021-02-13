@@ -2,6 +2,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinTable,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -11,6 +12,7 @@ import { Coffee } from "./Coffee";
 import { Origin } from "./Origin";
 import { Recipe } from "./Recipe";
 import { RoastedCoffee } from "./RoastedCoffee";
+import { Roastery } from "./Roastery";
 
 @Entity()
 export class User extends BaseEntity {
@@ -40,4 +42,8 @@ export class User extends BaseEntity {
 
   @OneToMany(() => BrewMethod, (bm) => bm.createdBy)
   brewMethods: BrewMethod[];
+
+  @OneToMany(() => Roastery, (r) => r.createdBy)
+  @JoinTable()
+  roasteries: Roastery[];
 }
