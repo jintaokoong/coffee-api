@@ -18,7 +18,7 @@ router.get('/', AuthGuard, async (_req, res) => {
       { relations: ['coffees', 'coffees.process', 'coffees.origin'] }
     );
   } catch (err) {
-    return res.status(400).send('user not found.');
+    return res.status(500).send('internal server error.');
   }
 
   if (!user) {

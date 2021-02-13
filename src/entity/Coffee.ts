@@ -4,18 +4,18 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { Origin } from "./Origin";
-import { Process } from "./Process";
-import { RoastedCoffee } from "./RoastedCoffee";
-import { User } from "./User";
+} from 'typeorm';
+import { Origin } from './Origin';
+import { Process } from './Process';
+import { RoastedCoffee } from './RoastedCoffee';
+import { User } from './User';
 
 @Entity()
 export class Coffee extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -24,11 +24,11 @@ export class Coffee extends BaseEntity {
   @ManyToOne(() => Process, (p) => p.coffees)
   process: Process;
 
-  @OneToOne(() => RoastedCoffee, (rc) => rc.coffee)
-  roasted: RoastedCoffee;
-
   @ManyToOne((_type) => Origin, (origin) => origin.coffee)
   origin: Origin;
+
+  @OneToMany(() => RoastedCoffee, (rc) => rc.coffee)
+  roastedCoffees: RoastedCoffee[];
 
   @CreateDateColumn()
   createdDateTime: Date;

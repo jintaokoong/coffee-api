@@ -7,26 +7,26 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { RoastedCoffee } from "./RoastedCoffee";
-import { User } from "./User";
+} from 'typeorm';
+import { RoastedCoffee } from './RoastedCoffee';
+import { User } from './User';
 
 @Entity()
 export class Roastery extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @Column("float")
+  @Column('float')
   latitude: number;
 
-  @Column("float")
+  @Column('float')
   longitude: number;
 
   @OneToMany(() => RoastedCoffee, (rc) => rc.roastery)
-  roasted: RoastedCoffee[];
+  roastedCoffees: RoastedCoffee[];
 
   @CreateDateColumn()
   createdAt: Date;

@@ -5,15 +5,15 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { BrewMethod } from "./BrewMethod";
-import { RoastedCoffee } from "./RoastedCoffee";
-import { TasteNote } from "./TasteNote";
-import { User } from "./User";
+} from 'typeorm';
+import { BrewMethod } from './BrewMethod';
+import { RoastedCoffee } from './RoastedCoffee';
+import { TasteNote } from './TasteNote';
+import { User } from './User';
 
 @Entity()
 export class Recipe extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
@@ -38,7 +38,7 @@ export class Recipe extends BaseEntity {
   tasteNotes: TasteNote[];
 
   @ManyToOne((_t) => RoastedCoffee, (coffee) => coffee.recipes)
-  roasted: RoastedCoffee;
+  roastedCoffees: RoastedCoffee;
 
   @ManyToOne(() => BrewMethod, (bm) => bm.recipes)
   brewMethod: BrewMethod;

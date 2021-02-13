@@ -4,34 +4,33 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { Coffee } from "./Coffee";
-import { Recipe } from "./Recipe";
-import { Roast } from "./Roast";
-import { Roastery } from "./Roastery";
-import { User } from "./User";
+} from 'typeorm';
+import { Coffee } from './Coffee';
+import { Recipe } from './Recipe';
+import { Roast } from './Roast';
+import { Roastery } from './Roastery';
+import { User } from './User';
 
 @Entity()
 export class RoastedCoffee {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   weight: number;
 
-  @ManyToOne(() => Roastery, (r) => r.roasted)
+  @ManyToOne(() => Roastery, (r) => r.roastedCoffees)
   roastery: Roastery;
 
   @ManyToOne(() => Roast, (roast) => roast.coffees)
   roast: Roast;
 
-  @OneToMany((_t) => Recipe, (recipe) => recipe.roasted)
+  @OneToMany((_t) => Recipe, (recipe) => recipe.roastedCoffees)
   recipes: Recipe[];
 
-  @OneToOne(() => Coffee, (c) => c.roasted)
+  @ManyToOne(() => Coffee, (c) => c.roastedCoffees)
   coffee: Coffee;
 
   @CreateDateColumn()
