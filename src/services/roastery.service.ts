@@ -37,6 +37,8 @@ export const roasteryService = {
         name: roastery.name,
         longitude: roastery.longitude,
         latitude: roastery.latitude,
+        createdAt: roastery.createdAt,
+        updatedAt: roastery.updatedAt,
       },
     };
   },
@@ -50,6 +52,8 @@ export const roasteryService = {
         name: r.name,
         latitude: r.latitude,
         longitude: r.longitude,
+        createdAt: r.createdAt,
+        updatedAt: r.updatedAt,
       }));
       return {
         roasteries: dtos,

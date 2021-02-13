@@ -70,6 +70,8 @@ router.post("/", AuthGuard, async (req, res) => {
       region: origin.region,
       farm: origin.farm,
       description: origin.description,
+      createdAt: origin.createdAt,
+      updatedAt: origin.updatedAt,
     },
   };
   return res.status(200).send(response);
