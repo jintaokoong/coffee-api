@@ -73,6 +73,15 @@ router.post('/', AuthGuard, async (req, res) => {
 
     roasted = await entityManager.save(roasted);
     queryRunner.commitTransaction();
+
+    const response = {
+      roastedCoffee: {
+        ...roasted,
+        recipes: undefined,
+        createdBy: undefined,
+      },
+    };
+    return res.status(200).send(response);
   } catch (err) {
     queryRunner.rollbackTransaction();
     console.error(err);
@@ -85,15 +94,6 @@ router.post('/', AuthGuard, async (req, res) => {
   } finally {
     queryRunner.release();
   }
-
-  const response = {
-    roastedCoffee: {
-      ...roasted,
-      recipes: undefined,
-      createdBy: undefined,
-    },
-  };
-  return res.status(200).send(response);
 });
 
 const roastedCoffeeController = router;
