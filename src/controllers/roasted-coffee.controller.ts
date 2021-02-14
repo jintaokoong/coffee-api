@@ -20,6 +20,9 @@ router.post('/', AuthGuard, async (req, res) => {
     return res.status(500).send('internal server error.');
   }
   const payload: CreateRoastedCoffeeApiRequest = req.body;
+  if (user === undefined) {
+    return res.status(400).send('user not found.');
+  }
 
   let roast: Roast | undefined = undefined;
   if (payload.roast.id) {
@@ -67,9 +70,9 @@ router.post('/', AuthGuard, async (req, res) => {
     roasted = new RoastedCoffee();
     roasted.weight = payload.weight;
     roasted.roast = roast;
-    roasted.roastery = roastery!;
-    roasted.coffee = coffee!;
-    roasted.createdBy = user!;
+    roasted.roastery = roastery;
+    roasted.coffee = coffee;
+    roasted.createdBy = user;
 
     roasted = await entityManager.save(roasted);
     queryRunner.commitTransaction();
