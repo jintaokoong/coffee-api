@@ -4,15 +4,22 @@ import { verify } from 'jsonwebtoken';
 import { LoginRequest } from 'src/interfaces/auth/login';
 import { RegisterRequest } from 'src/interfaces/auth/register';
 import { User } from '../entity/User';
-import { createAccessToken, createRefreshToken, sendRefreshToken } from '../utils/auth';
+import {
+  createAccessToken,
+  createRefreshToken,
+  sendRefreshToken,
+} from '../utils/auth';
 
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
   const payload: LoginRequest = req.body;
-  const user = await User.findOne({
-    where: { email: payload.email },
-  });
+  const user = await User.findOne(
+    {
+      email: payload.email,
+    },
+    { select: ['id', 'email', 'password'] }
+  );
   if (!user) {
     return res.status(400).send({
       message: 'invalid email or password',
@@ -32,17 +39,17 @@ router.post('/login', async (req, res) => {
   return res.send({
     accessToken: createAccessToken(user),
   });
-})
+});
 
 router.post('/register', async (req, res) => {
   const payload: RegisterRequest = req.body;
-  const user = await User.findOne({ where: { email: payload.email }});
+  const user = await User.findOne({ where: { email: payload.email } });
   if (user) {
     return res.status(409).send({
       message: 'user already exists!',
     });
   }
-  
+
   const hashed = await hash(payload.password, 12);
   try {
     await User.insert({
@@ -52,14 +59,14 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).send({
-      message: 'insert failed.'
-    })
+      message: 'insert failed.',
+    });
   }
 
   return res.status(201).send({
     message: 'user created',
   });
-})
+});
 
 router.post('/refresh_token', async (req, res) => {
   const token = req.cookies.jid;
@@ -92,6 +99,6 @@ router.post('/refresh_token', async (req, res) => {
   return res.send({
     accessToken: createAccessToken(user),
   });
-})
+});
 
 export default router;

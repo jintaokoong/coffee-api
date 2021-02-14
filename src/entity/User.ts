@@ -5,14 +5,14 @@ import {
   JoinTable,
   OneToMany,
   PrimaryGeneratedColumn,
-} from "typeorm";
-import { Brewer } from "./Brewer";
-import { BrewMethod } from "./BrewMethod";
-import { Coffee } from "./Coffee";
-import { Origin } from "./Origin";
-import { Recipe } from "./Recipe";
-import { RoastedCoffee } from "./RoastedCoffee";
-import { Roastery } from "./Roastery";
+} from 'typeorm';
+import { Brewer } from './Brewer';
+import { BrewMethod } from './BrewMethod';
+import { Coffee } from './Coffee';
+import { Origin } from './Origin';
+import { Recipe } from './Recipe';
+import { RoastedCoffee } from './RoastedCoffee';
+import { Roastery } from './Roastery';
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,7 +22,7 @@ export class User extends BaseEntity {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @OneToMany(() => Origin, (r) => r.createdBy)
