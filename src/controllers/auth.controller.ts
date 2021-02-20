@@ -41,6 +41,11 @@ router.post('/login', async (req, res) => {
   });
 });
 
+router.post('/logout', async (_req, res) => {
+  sendRefreshToken(res, '');
+  return res.status(200).send('200');
+});
+
 router.post('/register', async (req, res) => {
   const payload: RegisterRequest = req.body;
   const user = await User.findOne({ where: { email: payload.email } });
